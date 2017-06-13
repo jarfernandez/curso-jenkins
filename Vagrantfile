@@ -10,5 +10,7 @@ Vagrant.configure("2") do |config|
         vb.memory = 2048
         vb.cpus = 2
         vb.name = "jenkins"
-    end        
+    end
+    
+    config.vm.network "forwarded_port", host: 8080, guest:8080, autocorrect: true
 end
