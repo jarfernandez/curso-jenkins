@@ -2,15 +2,36 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-    config.vm.box = "ubuntu/trusty64"
-    config.vm.boot_timeout = 120
-    config.vm.hostname = "jenkins"
+    # Usa la misma key para cada maquina
+    config.ssh.insert_key = false
     
-    config.vm.provider "virtualbox" do |vb|
-        vb.memory = 2048
-        vb.cpus = 2
-        vb.name = "jenkins"
+    config.vm.define "jenkins" do |jk|
+        jk.vm.box = "ubuntu/trusty64"
+        jk.vm.boot_timeout = 120
+        jk.vm.hostname = "jenkins"
+    
+        jk.vm.provider "virtualbox" do |vb|
+            vb.memory = 2048
+            vb.cpus = 2
+            vb.name = "jenkins"
+        end
+    
+        jk.vm.network "private_network", ip: "192.168.50.10"
+        jk.vm.network "forwarded_port", host: 8080, guest:8080, autocorrect: true
     end
+
+    config.vm.define "tomcat" do |tc|
+        tc.vm.box = "ubuntu/trusty64"
+        tc.vm.boot_timeout = 120
+        tc.vm.hostname = "tomcat"
     
-    config.vm.network "forwarded_port", host: 8080, guest:8080, autocorrect: true
+        tc.vm.provider "virtualbox" do |vb|
+            vb.memory = 1024
+            vb.cpus = 1
+            vb.name = "tomcat"
+        end
+    
+        tc.vm.network "private_network", ip: "192.168.50.20"
+        tc.vm.network "forwarded_port", host: 8090, guest:8080, autocorrect: true
+    end
 end
