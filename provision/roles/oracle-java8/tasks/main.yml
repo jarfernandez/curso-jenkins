@@ -1,0 +1,17 @@
+---
+- name: Instalar add-apt-repository
+  become: yes
+  apt: name=software-properties-common state=latest
+
+- name: Añadir el repositorio Oracle Java
+  become: yes
+  apt_repository: repo='ppa:webupd8team/java'
+
+- name: Aceptar la licencia de Oracle Java 8
+  become: yes
+  debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
+
+- name: Instalar Oracle Java 8
+  become: yes
+  apt: name={{item}} state=latest
+  with_items: '{{ oracle_java8_packages }}'
