@@ -5,4 +5,5 @@
     - { role: common, tags: common }
     - { role: oracle-java8, tags: oracle-java8 }
     - { role: jenkins, tags: jenkins }
+    - { role: maven, tags: maven }
     
