@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
             ansible.playbook = "provision/install.yml"
             ansible.host_key_checking = false
             ansible.sudo = true
-            ansible.tags = ['oracle-java8', 'jenkins']
+            ansible.tags = ['common', 'oracle-java8', 'jenkins']
         end
     end
 
