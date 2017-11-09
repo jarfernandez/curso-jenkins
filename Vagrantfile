@@ -17,7 +17,7 @@ Vagrant.configure("2") do |config|
         end
         
         jk.vm.network "private_network", ip: "192.168.50.10"
-        jk.vm.network "forwarded_port", host: 8080, guest:8080, autocorrect: true
+        jk.vm.network "forwarded_port", host: 8080, guest: 8080, autocorrect: true
         
         jk.vm.provision "ansible" do |ansible|
             ansible.playbook = "provision/install.yml"
@@ -39,6 +39,6 @@ Vagrant.configure("2") do |config|
         end
     
         tc.vm.network "private_network", ip: "192.168.50.20"
-        tc.vm.network "forwarded_port", host: 8090, guest:8080, autocorrect: true
+        tc.vm.network "forwarded_port", host: 8090, guest: 8080, autocorrect: true
     end
 end
